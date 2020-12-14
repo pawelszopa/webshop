@@ -1,0 +1,1 @@
+from alegrosz.views.main_views import bp_main
