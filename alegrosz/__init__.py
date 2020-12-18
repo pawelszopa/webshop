@@ -1,6 +1,8 @@
 from flask import Flask, g
 
 
+#  global = g
+
 def create_app():
     alegrosz = Flask(__name__)
 
