@@ -8,7 +8,7 @@ class ItemForm(FlaskForm):
     title = StringField('Title',
                         validators=[InputRequired("Input is required"), DataRequired("Data is required"),
                                     Length(min=5, max=20, message="Input must be between 5 and 20 characters long")])
-    price = FloatField('Price')
+
     description = TextAreaField("Description",
                                 validators=[InputRequired("Input is required"), DataRequired("Data is required"),
                                             Length(min=5, max=40,
@@ -27,11 +27,18 @@ class EditItem(ItemForm):
 
 
 class DeleteItem(FlaskForm):
+    price = FloatField('Price')
     submit = SubmitField("Delete")
+# TODO extra validators (in class) price must be given to submit delete
+
+    @staticmethod
+    def validate_price(self, price):
+        return False
 
 
 class FilterForm(FlaskForm):
     title = StringField('Title', validators=[Length(max=20, message='Less then 20')])
+    description = StringField('description', validators=[Length(max=50, message='Less then 50')])
     price = SelectField('Price', coerce=int, choices=[(0, '---'), (1, 'Max to min'), (2, 'Min to max')])
     category = SelectField('Category', coerce=int)
     subcategory = SelectField('Subcategory', coerce=int)

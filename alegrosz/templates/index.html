@@ -1,33 +1,33 @@
-{% extends '_base.html' %}
-{% from "form_field_macros.html" import form_field %}
-{% block content %}
+{% extends 'partials/_two_column.html' %}
+{% from "macros/form_field_macros.html" import render_field %}
+
+{% block title %} Home {% endblock %}
+
+
+{% block aside %}
 <div>
-    <form action="">
-        {{ form_field(form.title) }}
-        {{ form_field(form.price) }}
-        {{ form_field(form.category) }}
-        {{ form_field(form.subcategory) }}
-        {{ form.submit }}
+    {% with method = 'GET' %}
 
-    </form>
+         {% include 'partials/_form.html' %}
 
+    {% endwith %}
 
 </div>
+{% endblock %}
+{% block main_content %}
 {% if items %}
-<ul>
-    {% for item in items %}
-        <li>
-            {{ item.id }}
-            {{ item.title }}
-            {{ item.description }}
-            {{ item.price }}
-            {{ item.image }}
-            {{ item.category_name }}
-            {{ item.subcategory_name }}
-        </li>
-    {% endfor %}
-</ul>
+{% for item in items  %}
+    {% if loop.index0 % 3 == 0 %}
+    <div class="row">
+    {% endif %}
+    {% include 'partials/_item_card.html' %}
+    {% if loop.index % 3 == 0 %}
+    </div>
+    {% endif %}
+{% endfor %}
 {% endif %}
+
+
 
 
 {% endblock %}

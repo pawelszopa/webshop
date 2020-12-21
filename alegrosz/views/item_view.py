@@ -74,8 +74,8 @@ def item(item_id):
         db_item = {}
 
     if db_item:
-        delete_form = DeleteItem()
-        return render_template('item.html', item=db_item, delete_form=delete_form)
+        form = DeleteItem()
+        return render_template('item.html', item=db_item, form=form)
 
 
 @bp_item.route('/edit/<int:item_id>', methods=["GET", "POST"])
@@ -142,11 +142,16 @@ def delete(item_id):
 
     row = c.fetchone()
 
-    if row is not None:
-        c.execute("DELETE FROM item WHERE id=?", (item_id,))
-        conn.commit()
-        flash(f"Item has been successfully deleted", "success")
-    else:
-        flash(f"This item does not exist", "danger")
+    form = DeleteItem()
+    if form.validate_on_submit():
 
-    return redirect(url_for('main.index'))
+        if row is not None:
+            c.execute("DELETE FROM item WHERE id=?", (item_id,))
+            conn.commit()
+            flash(f"Item has been successfully deleted", "success")
+        else:
+            flash(f"This item does not exist", "danger")
+
+        return redirect(url_for('main.index'))
+    flash("Incorrect price", "danger")
+    return redirect(url_for('item.item', item_id=item_id))

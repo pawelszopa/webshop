@@ -1,26 +1,14 @@
-{% extends "_base.html" %}
+{% extends "partials/_base.html" %}
 
-{% from "form_field_macros.html" import form_field %}
+
+
 
 {% block content %}
 
-<form action="" method="post" enctype="multipart/form-data" novalidate>
-    {{ form.hidden_tag() }}
+    {% with enctype = True %}
 
-    {{ form_field(form.title) }}
-    {{ form_field(form.price) }}
-    {{ form_field(form.description) }}
-    {{ form_field(form.image) }}
-    {{ form_field(form.category) }}
-    {{ form_field(form.subcategory) }}
-    {{ form.submit }}
+         {% include 'partials/_form.html' %}
 
-
-
-
-
-
-</form>
-
+    {% endwith %}
 
 {% endblock %}

@@ -49,6 +49,10 @@ def index():
         filter_queries.append('i.title LIKE ?')
         parameters.append(f'%{form.title.data.strip()}%')  # it will find any sting that contain form file data
 
+    if form.description.data:
+        filter_queries.append('i.description LIKE ?')
+        parameters.append(f'%{form.description.data}%')
+
     if form.category.data:
         filter_queries.append('i.category_id = ?')
         parameters.append(form.category.data)

@@ -1,13 +1,24 @@
-{% extends "_base.html" %}
-{% from "form_field_macros.html" import form_field %}
+{% extends "partials/_base.html" %}
+
 {% block content %}
 
     {{ item }}
-<img src="{{ url_for('main.uploads', filename=item.image )}}" alt="d">
-<form action="{{url_for('item.delete', item_id=item.id)}}" method="post">
-    {{ form_field(delete_form.submit) }}
-</form>
+<img src="{{ url_for('main.uploads', filename=item.image )}}" style="width:16px; height: auto" alt="d">
+<a href="{{ url_for('item.edit', item_id=item.id) }}" class="btn btn-primary">Edit</a>
+
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  Launch demo modal
+</button>
 
 
 
+
+{% with  %}
+
+    {% set method = 'POST'%}
+    {% set action = url_for('item.delete', item_id=item.id)%}
+    {% include 'partials/_modal_form.html' %}
+
+
+    {% endwith %}
 {% endblock %}
