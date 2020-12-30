@@ -1,25 +1,37 @@
-{% extends "partials/_base.html" %}
+{% extends 'partials/_one_column.html' %}
 
 {% block content %}
+<body style="background-color:grey;">
+<br>
+    <div class="row" style="background-color:white;" >
+        <div class="col-6">
 
-    {{ item }}
+        <p><img src="{{ url_for('main.uploads', filename=item.image )}}" style="width:auto; height: auto" alt="picture"
+                class="img-fit"></p>
 
-<img src="{{ url_for('main.uploads', filename=item.image )}}" style="width:16px; height: auto" alt="d">
-<a href="{{ url_for('item.edit', item_id=item.id) }}" class="btn btn-primary">Edit</a>
+        </div>
+        <div class="col-6">
+            <center>
+                <h3><p>{{item.title}}</p></h3>
+                <p><i>{{item.description}}</i></p>
+                <p><b>Price: {{item.price}}</b></p>
+                <p>Item Category:</p>
+                <p>{{item.category_name}} -> {{item.subcategory_name}}</p>
+                <a href="{{ url_for('item.edit', item_id=item.id) }}" class="btn btn-success btn-lg">Edit</a>
+                <button type="button" class="btn btn-danger btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Delete
+                </button>
+            </center>
+        </div>
+    </div>
 
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-  Launch demo modal
-</button>
+</body>
 
-
-
-
-{% with  %}
-
-    {% set method = 'POST'%}
-    {% set action = url_for('item.delete', item_id=item.id)%}
-    {% include 'partials/_modal_form.html' %}
-
-
-    {% endwith %}
+{% with %}
+{% set method = 'POST'%}
+{% set action = url_for('item.delete', item_id=item.id)%}
+{% include 'partials/_modal_form.html' %}
+{% endwith %}
 {% endblock %}
+
+

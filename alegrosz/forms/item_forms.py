@@ -28,6 +28,7 @@ class EditItem(ItemForm):
 
 
 class DeleteItem(FlaskForm):
+    price = FloatField('Price')
     submit = SubmitField("Delete")
 
     # TODO extra validators (in class) price must be given to submit delete
