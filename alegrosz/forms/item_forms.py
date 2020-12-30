@@ -4,6 +4,7 @@ from wtforms import StringField, FloatField, TextAreaField, FileField, SelectFie
 from wtforms.validators import InputRequired, DataRequired, Length
 
 from alegrosz.forms.price_field import PriceField
+from .belongs_to_other_field_option import BelongsToOtherFieldOptions
 
 
 class ItemForm(FlaskForm):
@@ -21,7 +22,8 @@ class ItemForm(FlaskForm):
 
 class NewItemForm(ItemForm):
     category = SelectField('Category', coerce=int)
-    subcategory = SelectField('Subcategory', coerce=int)
+    subcategory = SelectField('Subcategory', coerce=int,
+                              validators=[BelongsToOtherFieldOptions('subcategory', 'category')])
     submit = SubmitField("Add")
 
 

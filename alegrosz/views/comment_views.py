@@ -1,8 +1,8 @@
 from flask import Blueprint, url_for
 from werkzeug.utils import escape, redirect
 
-from dbs.dbs import get_db
-from alegrosz.forms.comment_forms import CommentForm
+from ..dbs.dbs import get_db
+from ..forms.comment_forms import CommentForm
 
 bp_comment = Blueprint("comment", __name__, url_prefix='/comments')
 

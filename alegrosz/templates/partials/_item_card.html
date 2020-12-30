@@ -1,14 +1,20 @@
-<div class="col-4">
-  <div class="card" style="width: 18rem;">
-    <div class="img-fit-cover">
-    <img src="{% if item.image%}{{ url_for('main.uploads', filename=item.image ) }}{%else%}{{ url_for('static', filename='image/beer.jpg' ) }}{% endif %}" class="img-fit card-img-top img-fluid img-thumbnail" alt="...">
+   <a href="{{ url_for('item.item', item_id=item.id ) }}" class="anchor-hidden">
+    <div class="embed-responsive embed-responsive-16by9">
+    <img src="{% if item.image%}{{ url_for('main.uploads', filename=item.image ) }}{%else%}{{ url_for('static', filename='images/beer.jpg' ) }}{% endif %}" class="card-img-top embed-responsive-item" alt="...">
     </div>
       <div class="card-body">
-      <h5 class="card-title">{{ item.title }}</h5>
-      <p class="card-text">{{ item.description }}</p>
-      <p class="card-text">{{ item.price }}</p>
-      <p class="card-text">{{ item.category_name }} -> {{ item.subcategory_name }}</p>
-      <a href="{{ url_for('item.item', item_id=item.id ) }}" class="btn btn-primary">Go to item</a>
+        <h4 class="card-title">
+          {{ item.title }}
+          </h4>
+
+
+        <h5>{{ "%.2f PLN" | format(item.price) }}</h5>
+        <p class="card-text">{{item.description}}</p>
+
+
     </div>
-  </div>
-</div>
+    <div class="card-footer">
+      <small class="text-muted"> {{item.category_name}} -> {{item.subcategory_name}}
+      </small>
+    </div>
+      </a>

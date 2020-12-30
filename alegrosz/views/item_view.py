@@ -67,7 +67,7 @@ def item(item_id):
             'title': row[1],
             'description': row[2],
             'price': row[3],
-            'image': row[4],
+            'images': row[4],
             'category_name': row[5],
             'subcategory_name': row[6],
         }
@@ -106,7 +106,7 @@ def edit(item_id):
             'title': row[1],
             'description': row[2],
             'price': row[3],
-            'image': row[4],
+            'images': row[4],
             'category_name': row[5],
             'subcategory_name': row[6],
         }
@@ -116,13 +116,13 @@ def edit(item_id):
     if db_item:
         form = EditItem()
         if form.validate_on_submit():
-            filename = db_item['image']
+            filename = db_item['images']
 
             if form.image.data:
                 filename = save_image_upload(form.image)  # must be without data (because of save method)
 
             c.execute('''UPDATE item SET
-            title=?, description=?, price=?, image=?
+            title=?, description=?, price=?, images=?
             WHERE id=?                        
             ''', (
                 form.title.data,

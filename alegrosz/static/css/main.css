@@ -20,3 +20,23 @@
 .margin {
     padding: 0.5em;
 }
+
+.anchor-hidden {
+    text-decoration: none;
+
+}
+
+.card-img-top {
+    object-fit: cover;
+}
+
+.test{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.test .anchor-hidden {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}

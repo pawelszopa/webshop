@@ -11,10 +11,12 @@ def create_app():
     from .views import bp_main
     from .views import bp_item
     from .views import bp_comment
+    from .views import bp_category
 
     alegrosz.register_blueprint(bp_main)
     alegrosz.register_blueprint(bp_item)
     alegrosz.register_blueprint(bp_comment)
+    alegrosz.register_blueprint(bp_category)
 
     # this decorator before it will be closed ctr c this function will happened
     @alegrosz.teardown_appcontext

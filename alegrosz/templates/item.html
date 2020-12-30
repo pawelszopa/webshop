@@ -1,35 +1,61 @@
 {% extends 'partials/_one_column.html' %}
 
 {% block content %}
-<body style="background-color:grey;">
-<br>
-
-    <div class="row" style="background-color:white;" >
-        <div class="col-6 ">
-
-        <p><img src="{{ url_for('main.uploads', filename=item.image )}}" style="width:auto; height: auto" alt="picture"
-                class="img-fit"></p>
-
+<div class="row">
+    <div class="col-sm-3 my-4">
+        <a href="{{ url_for('item.edit', item_id=item.id) }}" class="btn btn-success">Edit</a>
+        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Delete
+        </button>
+    </div>
+    <div class="col-sm-9">
+        <div class="card mt-4">
+            <div class="embed-responsive embed-responsive-16by9">
+                <img src="{% if item.image %} {{ url_for('main.uploads', filename=item.image )}}{% else %}{{ url_for('static', filename='images/beer.jpg')}} {% endif %}"
+                     alt="picture"
+                     class="card-img-top embed-responsive-item">
+            </div>
+            <div class="card-body">
+                <h3 class="card-title">{{ item.title }}</h3>
+                <h4>{{ "%.2f PLN" | format(item.price) }}</h4>
+                <p class="card-text">{{item.description}}</p>
+                <div>
+                    <div class="badge-secondary">{{item.category_name}}</div>
+                    <br>
+                    <div class="badge-secondary">{{item.subcategory_name}}</div>
+                </div>
+            </div>
         </div>
-        <div class="col-6">
-            <center>
-                <h3><p>{{item.title}}</p></h3>
-                <p><i>{{item.description}}</i></p>
-                <p><b>Price: {{item.price}}</b></p>
-                <p>Item Category:</p>
-                <p>{{item.category_name}} -> {{item.subcategory_name}}</p>
-                <a href="{{ url_for('item.edit', item_id=item.id) }}" class="btn btn-success btn-lg">Edit</a>
-                <button type="button" class="btn btn-danger btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    Delete
-                </button>
-            </center>
+        <div class="card card-outline-secondary my-4">
+            <div class="card-header">
+                Product Reviews
+            </div>
+            <div class="card-body">
+                {% with %}
+                    {% set action = url_for('comment.comment') %}
+                    {% set form = commentForm %}
+                    {% include 'partials/_form.html' %}
+                {% endwith %}
+                <hr class="form-border">
+                {% if comments %}
+                    {% for comment in comments %}
+                        {% with content = comment.content %}
+                            {% include 'partials/_comment.html' %}
+                        {% endwith %}
+                    {% endfor %}
+                {% else %}
+                    <p class="placeholder-comment">Be the first to comment on this item.</p>
+                {% endif %}
+            </div>
         </div>
     </div>
+</div>
 
-</body>
+
 
 {% with %}
 {% set method = 'POST'%}
+{% set form = deleteForm %}
 {% set action = url_for('item.delete', item_id=item.id)%}
 {% include 'partials/_modal_form.html' %}
 {% endwith %}

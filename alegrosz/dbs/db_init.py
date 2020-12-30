@@ -44,7 +44,7 @@ c.execute('''CREATE TABLE item (
     FOREIGN KEY (category_id) REFERENCES category (id),
     FOREIGN KEY (subcategory_id) REFERENCES subcategory (id)
     )''')
-#  image to keep image - to keep in database,
+#  images to keep images - to keep in database,
 #  second type is  to keep on server and just provide links (our case this is why text)
 #  item need to be in both foreign keys because of question to db
 

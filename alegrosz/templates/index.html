@@ -8,26 +8,23 @@
 <div>
     {% with method = 'GET' %}
 
-         {% include 'partials/_form.html' %}
+        {% include 'partials/_form.html' %}
 
     {% endwith %}
 
 </div>
 {% endblock %}
 {% block main_content %}
-{% if items %}
-{% for item in items  %}
-    {% if loop.index0 % 3 == 0 %}
-    <div class="row">
-    {% endif %}
-    {% include 'partials/_item_card.html' %}
-    {% if loop.index % 3 == 0 %}
+    <div class="row my-5 card-wrapper test">
+        {% if items %}
+            {% for item in items  %}
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card h-100">
+                        {% include 'partials/_item_card.html' %}
+                    </div>
+                </div>
+             {% endfor %}
+        {% endif %}
     </div>
-    {% endif %}
-{% endfor %}
-{% endif %}
-
-
-
 
 {% endblock %}
