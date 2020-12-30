@@ -3,6 +3,8 @@ from flask_wtf.file import FileAllowed
 from wtforms import StringField, FloatField, TextAreaField, FileField, SelectField, SubmitField
 from wtforms.validators import InputRequired, DataRequired, Length
 
+from alegrosz.forms.price_field import PriceField
+
 
 class ItemForm(FlaskForm):
     title = StringField('Title',
@@ -14,7 +16,7 @@ class ItemForm(FlaskForm):
                                             Length(min=5, max=40,
                                                    message="Input must be between 5 and 20 characters long")])
     image = FileField('Image File', validators=[FileAllowed(['jpg', 'jpeg', 'png'], message="Images only.")])
-    price = FloatField('Price')
+    price = PriceField('Price')
 
 
 class NewItemForm(ItemForm):
