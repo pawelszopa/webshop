@@ -1,6 +1,8 @@
 {% from 'macros/form_field_macros.html' import render_field %}
-<form action="{{ action }}" method="{{ method if method else 'POST'}}" novalidate {% if enctype %} enctype="multipart/form-data" {% endif %}>
+
+<form action="{{ action }}" method="{{ method if method else 'POST'}}" novalidate {% if enctype %}
+      enctype="multipart/form-data" {% endif %}>
     {% for f in form %}
-        {{ render_field(f) }}
+    {{ render_field(f) }}
     {% endfor %}
 </form>

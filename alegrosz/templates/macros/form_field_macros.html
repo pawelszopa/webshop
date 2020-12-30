@@ -1,15 +1,15 @@
 {% macro render_field(field) -%}
 <div class="form-group">
     {% with invalid = "form-control is-invalid" if field.errors else 'form-control'%}
-    {% if field.type != "Submit" and field.type != 'HiddenField' %}
-        {{ field.label(class="form-label") }}
+    {% if field.type != "SubmitField" and field.type != 'HiddenField' %}
+    {{ field.label(class="form-label") }}
     {% endif %}
     {{ field(class=invalid)}}
     {% if field.errors %}
-    <div class="is-invalid">
-    {% for error in field.errors %}
-         {{ error }}
-    {% endfor %}
+    <div class="invalid-feedback">
+        {% for error in field.errors %}
+        {{ error }}
+        {% endfor %}
     </div>
     {% endif %}
     {% endwith %}
