@@ -14,6 +14,7 @@ class ItemForm(FlaskForm):
                                             Length(min=5, max=40,
                                                    message="Input must be between 5 and 20 characters long")])
     image = FileField('Image File', validators=[FileAllowed(['jpg', 'jpeg', 'png'], message="Images only.")])
+    price = FloatField('Price')
 
 
 class NewItemForm(ItemForm):
@@ -27,9 +28,9 @@ class EditItem(ItemForm):
 
 
 class DeleteItem(FlaskForm):
-    price = FloatField('Price')
     submit = SubmitField("Delete")
-# TODO extra validators (in class) price must be given to submit delete
+
+    # TODO extra validators (in class) price must be given to submit delete
 
     @staticmethod
     def validate_price(self, price):

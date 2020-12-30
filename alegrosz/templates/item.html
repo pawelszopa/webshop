@@ -3,6 +3,7 @@
 {% block content %}
 
     {{ item }}
+
 <img src="{{ url_for('main.uploads', filename=item.image )}}" style="width:16px; height: auto" alt="d">
 <a href="{{ url_for('item.edit', item_id=item.id) }}" class="btn btn-primary">Edit</a>
 
