@@ -3,6 +3,7 @@ from flask_wtf.file import FileRequired
 from werkzeug.exceptions import abort
 from werkzeug.utils import redirect
 
+from ..forms.comment_forms import CommentForm
 from ..helpers import save_image_upload
 from ..dbs.dbs import get_db
 from ..forms.item_forms import NewItemForm, EditItem, DeleteItem
@@ -74,8 +75,18 @@ def item(item_id):
         db_item = {}
 
     if db_item:
+        comments_from_db = c.execute('''SELECT content FROM comment
+                WHERE item_id  = ? ORDER BY id DESC''', (item_id,))
+
+        comments = [{"content": row[0]} for row in comments_from_db]
+
+        comment_form = CommentForm()
+        comment_form.item_id.data = item_id
+
         form = DeleteItem()
-        return render_template('item.html', item=db_item, form=form)
+        return render_template('item.html', item=db_item, deleteForm=form, commentForm=comment_form, comments=comments)
+
+    return redirect(url_for('main.index'))
 
 
 @bp_item.route('/edit/<int:item_id>', methods=["GET", "POST"])
