@@ -4,10 +4,8 @@ from wtforms.widgets import Input
 
 
 class PriceInput(Input):
-    input_type = 'number'  # type definition
+    input_type = 'number'
 
-    # There are  class that you can call
-    # <input type="number" id="yolo" min="0" step="0.01">
     def __call__(self, field, **kwargs):
         kwargs.setdefault("id", field.id)
         kwargs.setdefault("type", self.input_type)
@@ -16,7 +14,6 @@ class PriceInput(Input):
 
         if "value" not in kwargs:
             kwargs["value"] = field._value()
-            # value is in field but as a function
 
         if "required" not in kwargs and "required" in getattr(field, "flags", []):
             kwargs['required'] = True
@@ -30,14 +27,7 @@ class PriceInput(Input):
         
         </div>
         ''' % self.html_params(name=field.name, **kwargs))
-    # prepend for move PLN to left or right but move input between div also does that
-# i tak field and many other so **kwargs
-# kwargs - "argumenty nazwane" are provided by dict type
-
-#  field dzieczy po inpucie w momencie jak jest towrozoy moga być atrybuty - atrybuty sa zebrane w liste która sie nazway flags
-# flags to pole obiektu field
 
 
-# Markup pozawala pisać htmla w pythonie
 class PriceField(DecimalField):
     widget = PriceInput()

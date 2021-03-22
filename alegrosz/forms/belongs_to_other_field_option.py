@@ -32,7 +32,7 @@ class BelongsToOtherFieldOptions:
             ))
         except Exception as e:
             raise AttributeError(f' Passed parameters are not correct. {e}')
-            #  count(*) zwraca ile jest wyników
+
 
         exists = c.fetchone()[0]
         if not exists:

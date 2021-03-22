@@ -1,8 +1,6 @@
 from flask import Flask, g
 
 
-#  global = g
-
 def create_app():
     alegrosz = Flask(__name__)
 
@@ -18,7 +16,6 @@ def create_app():
     alegrosz.register_blueprint(bp_comment)
     alegrosz.register_blueprint(bp_category)
 
-    # this decorator before it will be closed ctr c this function will happened
     @alegrosz.teardown_appcontext
     def close_connection(exception):
         db = getattr(g, "_database", None)

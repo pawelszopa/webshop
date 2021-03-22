@@ -24,4 +24,3 @@ def comment():
 
         conn.commit()
     return redirect(url_for('item.item', item_id=form.item_id.data))
-# escape is cleaning text for example from SQL that shouldn't be there

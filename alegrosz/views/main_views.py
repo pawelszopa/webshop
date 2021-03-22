@@ -12,17 +12,12 @@ def uploads(filename):
     return send_from_directory(uploads_path, filename)
 
 
-@bp_main.route('/')  # if get will be used for search it will add query in link (no "post" needed)
+@bp_main.route('/')
 def index():
     conn = get_db()
     c = conn.cursor()
-    # select WHAT FROM WHERE
-    # to do multiple tables/columns (need to use join)
-    # if we put column we should put table upfront
-    # from name of column you can put only one
 
     form = FilterForm(request.args, meta={'csrf': False})
-    # args is used to take query by request() all variable in request
 
     c.execute("SELECT id, name FROM category")
     categories = c.fetchall()
@@ -47,7 +42,7 @@ def index():
 
     if form.title.data.strip():
         filter_queries.append('i.title LIKE ?')
-        parameters.append(f'%{form.title.data.strip()}%')  # it will find any sting that contain form file data
+        parameters.append(f'%{form.title.data.strip()}%')
 
     if form.description.data:
         filter_queries.append('i.description LIKE ?')
@@ -69,10 +64,10 @@ def index():
         if form.price.data == 1:
             query += ' ORDER BY i.price DESC'
         else:
-            query += ' ORDER BY i.price'  # ASC jest domyślne
+            query += ' ORDER BY i.price'
 
     else:
-        query += ' ORDER BY i.id DESC'  # newest to oldest because of id
+        query += ' ORDER BY i.id DESC'
 
     item_from_db = c.execute(query, tuple(parameters))
 
